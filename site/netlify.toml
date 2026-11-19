@@ -1,0 +1,37 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# The Substitution Tribune
+# Today: Substack. When Ghost is live at tribune.substitution.app, change all three targets:
+#   /journal/feed -> https://tribune.substitution.app/rss/
+#   /read, /tribune -> https://tribune.substitution.app
+[[redirects]]
+  from = "/journal/feed"
+  to = "https://substitutionpro.substack.com/feed"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/read"
+  to = "https://substitutionpro.substack.com"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/tribune"
+  to = "https://substitutionpro.substack.com"
+  status = 302
+  force = true
+
+# Partner pages are invitation only: keep them out of search engines
+[[headers]]
+  for = "/partners*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
