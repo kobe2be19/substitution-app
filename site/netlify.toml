@@ -9,24 +9,23 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 # The Substitution Tribune
-# Today: Substack. When Ghost is live at tribune.substitution.app, change all three targets:
-#   /journal/feed -> https://tribune.substitution.app/rss/
-#   /read, /tribune -> https://tribune.substitution.app
+# Substack on the custom domain tribune.substitution.app.
+# If the Tribune moves to Ghost on the same domain, change /journal/feed to https://tribune.substitution.app/rss/
 [[redirects]]
   from = "/journal/feed"
-  to = "https://substitutionpro.substack.com/feed"
+  to = "https://tribune.substitution.app/feed"
   status = 200
   force = true
 
 [[redirects]]
   from = "/read"
-  to = "https://substitutionpro.substack.com"
+  to = "https://tribune.substitution.app"
   status = 302
   force = true
 
 [[redirects]]
   from = "/tribune"
-  to = "https://substitutionpro.substack.com"
+  to = "https://tribune.substitution.app"
   status = 302
   force = true
 
