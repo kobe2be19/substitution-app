@@ -29,8 +29,8 @@
   status = 302
   force = true
 
-# Partner pages are invitation only: keep them out of search engines
-[[headers]]
-  for = "/partners*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
+# Partner program retired (Nov 21, 2026)
+[[redirects]]
+  from = "/partners*"
+  to = "/"
+  status = 301
