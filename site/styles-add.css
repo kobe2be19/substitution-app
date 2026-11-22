@@ -50,3 +50,14 @@
   .mag-story:first-child{border-top:0}
   .mag-brief-copy{flex-direction:column;gap:6px}
 }
+
+/* Annual + monthly plans */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.plan{border:1px solid #262626;border-radius:20px;padding:22px 24px;background:#0b0b0b}
+.plan-best{border-color:#8496AA;box-shadow:inset 0 0 0 1px #8496AA}
+.plan-top{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8d8d8d;font-weight:700}
+.plan-top em{font-style:normal;background:#8496AA;color:#0a0a0a;border-radius:4px;padding:3px 7px;letter-spacing:.12em}
+.plans .price{margin:14px 0 0}
+.plans .price strong{font-size:clamp(36px,3.6vw,48px)}
+.plan-note{font-size:13px!important;color:#8d8d8d;margin:8px 0 0;line-height:1.5!important}
+@media (max-width:480px){.plans{grid-template-columns:1fr}}
