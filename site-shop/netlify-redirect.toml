@@ -1,0 +1,8 @@
+
+# Shop: catalog, checkout and webhook run on the Shop API site (branch shop-api).
+[[redirects]]
+  from = "/api/*"
+  to = "https://substitution-shop.netlify.app/api/:splat"
+  status = 200
+  force = true
+

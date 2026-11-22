@@ -1,0 +1,18 @@
+# Substitution Shop API
+# Serverless functions for substitution.app/shop: catalog (Printify), checkout (Stripe),
+# and the Stripe webhook that sends paid orders to Printify.
+# substitution.app proxies /api/* here, so customers only ever see substitution.app.
+
+[build]
+  publish = "public"
+  command = "echo 'no build'"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

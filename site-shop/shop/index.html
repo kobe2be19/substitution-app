@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#080808" />
+  <meta name="description" content="The Substitution Shop: headwear, apparel and small things for the bench. Made to order and shipped to your door." />
+  <title>Shop — Substitution</title>
+  <link rel="icon" href="/assets/icon.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/shop/shop.css" />
+</head>
+<body class="shop-page">
+<header class="nav">
+  <a class="brand" href="/" aria-label="Substitution home"><img src="/assets/icon.png" alt="" /><span>Substitution</span></a>
+  <nav><a href="/#features">Features</a><a href="/#pro">Pricing</a><a href="/#tribune">Tribune</a><a href="/shop" aria-current="page">Shop</a><button class="bag-toggle" type="button" aria-label="Open bag" data-open-bag>Bag <span class="bag-count" data-bag-count hidden>0</span></button></nav>
+</header>
+
+<main class="shop">
+  <section class="shop-head">
+    <div class="eyebrow">THE SUBSTITUTION SHOP</div>
+    <h1>Courtside goods.</h1>
+    <p>Headwear, apparel and small things for the bench. Each piece is made to order and shipped to your door.</p>
+    <div class="shop-filters" data-filters hidden></div>
+  </section>
+
+  <section class="shop-grid" data-grid aria-live="polite">
+    <div class="card skeleton"></div><div class="card skeleton"></div><div class="card skeleton"></div>
+  </section>
+
+  <section class="shop-empty" data-empty hidden>
+    <div class="eyebrow">COLLECTION 01</div>
+    <h2>The first collection is on its way.</h2>
+    <p>Follow <a href="https://www.instagram.com/substitution.app" target="_blank" rel="noopener">@substitution.app</a> to know when it opens.</p>
+  </section>
+
+  <section class="shop-notes">
+    <div><span>01</span><h3>Made to order</h3><p>Every piece is produced when you order it, so nothing sits in a warehouse.</p></div>
+    <div><span>02</span><h3>Flat shipping</h3><p data-ship-note>One flat rate per order, whatever you add to the bag.</p></div>
+    <div><span>03</span><h3>Questions</h3><p>Sizing, orders or returns: <a href="mailto:info@substitution.app">info@substitution.app</a>.</p></div>
+  </section>
+</main>
+
+<!-- Product sheet -->
+<dialog class="sheet" data-sheet aria-labelledby="sheet-title">
+  <button class="sheet-close" type="button" aria-label="Close" data-close-sheet>&times;</button>
+  <div class="sheet-body">
+    <div class="sheet-media">
+      <div class="sheet-image" data-sheet-image></div>
+      <div class="sheet-thumbs" data-sheet-thumbs></div>
+    </div>
+    <div class="sheet-info">
+      <div class="eyebrow" data-sheet-kicker>SUBSTITUTION</div>
+      <h2 id="sheet-title" data-sheet-title></h2>
+      <p class="sheet-price" data-sheet-price></p>
+      <div data-sheet-options></div>
+      <div class="qty-row">
+        <span class="opt-label">Quantity</span>
+        <div class="qty"><button type="button" data-qty="-1" aria-label="Fewer">−</button><output data-sheet-qty>1</output><button type="button" data-qty="1" aria-label="More">+</button></div>
+      </div>
+      <button class="button primary add-bag" type="button" data-add>Add to bag</button>
+      <p class="sheet-desc" data-sheet-desc></p>
+    </div>
+  </div>
+</dialog>
+
+<!-- Bag -->
+<aside class="bag" data-bag aria-hidden="true" aria-label="Your bag">
+  <div class="bag-head"><h2>Your bag</h2><button class="sheet-close" type="button" aria-label="Close bag" data-close-bag>&times;</button></div>
+  <div class="bag-lines" data-bag-lines></div>
+  <div class="bag-foot">
+    <div class="bag-row"><span>Subtotal</span><strong data-bag-subtotal>$0.00</strong></div>
+    <div class="bag-row muted"><span>Shipping</span><span data-bag-ship>Flat rate</span></div>
+    <div class="bag-row muted"><span>Tax</span><span>Calculated at checkout</span></div>
+    <button class="button primary checkout" type="button" data-checkout disabled>Checkout</button>
+    <p class="bag-error" data-bag-error role="alert"></p>
+    <p class="bag-secure">Secure checkout. Payments are processed by Stripe.</p>
+  </div>
+</aside>
+<div class="scrim" data-scrim hidden></div>
+
+<footer id="support"><div class="brand footer-brand"><img src="/assets/icon.png" alt="" /><span>Substitution</span></div><p>Basketball game management, courtside.</p><div class="footer-links"><a href="/read">Tribune</a><a href="/shop">Shop</a><a href="mailto:info@substitution.app">Support</a><a href="https://kobe2be19.github.io/substitution-app/privacy-policy.html">Privacy</a><a href="https://kobe2be19.github.io/substitution-app/terms.html">Terms</a></div><div class="social" aria-label="Substitution on social media"><a href="https://www.instagram.com/substitution.app" target="_blank" rel="noopener" aria-label="Instagram @substitution.app"><img src="/assets/social/instagram.svg" alt="" /></a><a href="https://x.com/SubstitutionApp" target="_blank" rel="noopener" aria-label="X @SubstitutionApp"><img src="/assets/social/x.svg" alt="" /></a><a href="https://www.tiktok.com/@substitution.app" target="_blank" rel="noopener" aria-label="TikTok @substitution.app"><img src="/assets/social/tiktok.svg" alt="" /></a><a href="https://www.youtube.com/@substitution-app" target="_blank" rel="noopener" aria-label="YouTube @substitution-app"><img src="/assets/social/youtube.svg" alt="" /></a></div><small>© 2026 Substitution. All rights reserved.</small></footer>
+<script src="/shop/shop.js" defer></script>
+</body>
+</html>
