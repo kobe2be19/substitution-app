@@ -8,8 +8,10 @@
   <title>Substitution — Manage the game, not the clock.</title>
   <link rel="icon" href="assets/icon.png" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="home.css" />
 </head>
 <body>
+<div class="ribbon"><b>NEW</b>The Substitution Shop is open. <a href="/shop">Shop courtside goods</a><i>|</i>The Substitution Tribune: coaching, from the bench out. <a href="/read">Read the latest</a></div>
 <header class="nav">
   <a class="brand" href="#top" aria-label="Substitution home"><img src="assets/icon.png" alt="" /><span>Substitution</span></a>
   <nav><a href="#features">Features</a><a href="#pro">Pricing</a><a href="#tribune">Tribune</a><a href="/shop">Shop</a><a href="#support">Support</a></nav>
@@ -30,9 +32,23 @@
     </div>
   </section>
 
+  <section class="shop-band" id="shop-band" aria-label="The Substitution Shop" hidden>
+    <div class="shop-band-head">
+      <div><div class="eyebrow">THE SUBSTITUTION SHOP</div><h2>Courtside goods.</h2><p>Training tees, quarter-zips, polos and caps in the Substitution mark. Made to order and shipped to your door.</p></div>
+      <a class="shop-band-cta" href="/shop">Shop the collection</a>
+    </div>
+    <div class="marquee"><div class="marquee-track" data-marquee-track></div></div>
+  </section>
+
   <section class="campaign-photo campaign-hero" style="--photo:url('assets/campaign/huddle-wide.jpg')"><div class="campaign-copy"><div class="eyebrow">BUILT FOR THE SIDELINE</div><h2>One less thing<br>to keep in your head.</h2><p>See the rotation while you watch the game. Substitution keeps the details close without pulling you away from the floor.</p></div></section>
 
   <section class="statement"><p>Rotation, fatigue, and fouls.<br><strong>Tracked courtside.</strong></p></section>
+
+  <section class="tribune-strip" aria-label="Latest from The Substitution Tribune">
+    <div><div class="eyebrow">THE SUBSTITUTION TRIBUNE</div><div class="ts-label">LATEST ISSUE</div></div>
+    <h3 id="tribune-latest"><a href="/read">Coaching, from the bench out.</a></h3>
+    <div class="ts-links"><a class="journal-link" id="tribune-latest-link" href="/read">Read the issue &rarr;</a><a class="journal-link" href="#tribune">Subscribe</a></div>
+  </section>
 
   <section class="features" id="features">
     <div class="section-head"><div class="eyebrow">GAME MANAGEMENT</div><h2>Everything that changes<br>while the ball is live.</h2></div>
@@ -92,5 +108,6 @@
 
 <footer id="support"><div class="brand footer-brand"><img src="assets/icon.png" alt="" /><span>Substitution</span></div><p>Basketball game management, courtside.</p><div class="footer-links"><a href="/read">Tribune</a><a href="/shop">Shop</a><a href="mailto:info@substitution.app">Support</a><a href="https://kobe2be19.github.io/substitution-app/privacy-policy.html">Privacy</a><a href="https://kobe2be19.github.io/substitution-app/terms.html">Terms</a></div><div class="social" aria-label="Substitution on social media"><a href="https://www.instagram.com/substitution.app" target="_blank" rel="noopener" aria-label="Instagram @substitution.app"><img src="assets/social/instagram.svg" alt="" /></a><a href="https://x.com/SubstitutionApp" target="_blank" rel="noopener" aria-label="X @SubstitutionApp"><img src="assets/social/x.svg" alt="" /></a><a href="https://www.tiktok.com/@substitution.app" target="_blank" rel="noopener" aria-label="TikTok @substitution.app"><img src="assets/social/tiktok.svg" alt="" /></a><a href="https://www.youtube.com/@substitution-app" target="_blank" rel="noopener" aria-label="YouTube @substitution-app"><img src="assets/social/youtube.svg" alt="" /></a></div><small>© 2026 Substitution. All rights reserved.</small></footer>
 <script src="journal.js" defer></script>
+<script src="home.js" defer></script>
 </body>
 </html>
