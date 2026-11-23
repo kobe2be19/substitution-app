@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#080808" />
+  <meta name="robots" content="noindex" />
+  <title>Thank you — Substitution Shop</title>
+  <link rel="icon" href="/assets/icon.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/shop/shop.css" />
+</head>
+<body class="shop-page">
+<header class="nav">
+  <a class="brand" href="/" aria-label="Substitution home"><img src="/assets/icon.png" alt="" /><span>Substitution</span></a>
+  <nav><a href="/#features">Features</a><a href="/#pro">Pricing</a><a href="/#tribune">Tribune</a><a href="/shop">Shop</a></nav>
+</header>
+<main class="thanks">
+  <div class="eyebrow">ORDER RECEIVED</div>
+  <h1 data-title>Thank you.</h1>
+  <p data-msg>Your order is in. Each piece is made to order, and we'll email tracking as soon as it ships.</p>
+  <span class="ref" data-ref hidden></span>
+  <div class="actions"><a class="button primary" href="/shop">Back to the shop</a><a class="button secondary" href="/">Substitution</a></div>
+</main>
+<footer id="support"><div class="brand footer-brand"><img src="/assets/icon.png" alt="" /><span>Substitution</span></div><p>Questions about your order: <a href="mailto:info@substitution.app">info@substitution.app</a></p><small>© 2026 Substitution. All rights reserved.</small></footer>
+<script>
+(function () {
+  try { localStorage.removeItem("sub-bag-v1"); } catch (e) {}
+  var id = new URLSearchParams(location.search).get("session_id");
+  if (!id) return;
+  fetch("/api/order?session_id=" + encodeURIComponent(id))
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (o) {
+      if (!o) return;
+      if (o.first_name) document.querySelector("[data-title]").textContent = "Thank you, " + o.first_name + ".";
+      var total = new Intl.NumberFormat("en-US", { style: "currency", currency: (o.currency || "usd").toUpperCase() }).format((o.total || 0) / 100);
+      document.querySelector("[data-msg]").textContent = "Your order of " + total + " is in. A receipt is on its way to " + o.email + ", and we'll email tracking as soon as it ships.";
+      var ref = document.querySelector("[data-ref]");
+      ref.textContent = "ORDER " + o.reference; ref.hidden = false;
+    })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>

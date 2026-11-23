@@ -1,0 +1,43 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# The Substitution Tribune
+# Substack on the custom domain tribune.substitution.app.
+# If the Tribune moves to Ghost on the same domain, change /journal/feed to https://tribune.substitution.app/rss/
+[[redirects]]
+  from = "/journal/feed"
+  to = "https://tribune.substitution.app/feed"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/read"
+  to = "https://tribune.substitution.app"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/tribune"
+  to = "https://tribune.substitution.app"
+  status = 302
+  force = true
+
+# Partner program retired (Nov 21, 2026)
+[[redirects]]
+  from = "/partners*"
+  to = "/"
+  status = 301
+
+# Substitution Shop: /shop pages live here; the API runs on the substitution-shop Netlify site
+[[redirects]]
+  from = "/api/*"
+  to = "https://substitution-shop.netlify.app/api/:splat"
+  status = 200
+  force = true
