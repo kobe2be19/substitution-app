@@ -32,7 +32,8 @@
 .tribune-strip .ts-links{display:flex;gap:22px;white-space:nowrap}
 
 @media(max-width:820px){
-  .ribbon i{display:block;height:4px;margin:0;visibility:hidden}
+  .ribbon .rb-long{display:none}
+  .ribbon i{margin:0 10px}
   .shop-band{padding:90px 0}
   .tribune-strip{grid-template-columns:1fr;gap:16px}
 }
