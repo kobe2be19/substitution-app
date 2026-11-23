@@ -27,7 +27,7 @@
   function category(p) {
     var t = (p.title + " " + (p.tags || []).join(" ")).toLowerCase();
     if (/\b(hat|cap|beanie|snapback|visor|bucket)\b/.test(t)) return "Headwear";
-    if (/\b(tee|t-shirt|shirt|hoodie|crewneck|sweatshirt|sweater|jacket|shorts|pants|joggers|polo|jersey|socks)\b/.test(t)) return "Apparel";
+    if (/\b(tee|t-shirt|shirt|hoodie|crewneck|sweatshirt|sweater|jacket|shorts|pants|joggers|polo|jersey|socks|zip|quarter-zip|sleeve|pullover)\b/.test(t)) return "Apparel";
     return "Accessories";
   }
 
@@ -69,7 +69,7 @@
     state.products.forEach(function (p) { if (cats.indexOf(p.category) < 0) cats.push(p.category); });
     var box = $("[data-filters]");
     if (cats.length < 2) { box.hidden = true; return; }
-    var order = ["Headwear", "Apparel", "Accessories"];
+    var order = ["Apparel", "Headwear", "Accessories"];
     cats.sort(function (a, b) { return order.indexOf(a) - order.indexOf(b); });
     box.innerHTML = ["All"].concat(cats).map(function (c) {
       return '<button type="button" data-filter="' + esc(c) + '"' + (c === state.filter ? ' aria-pressed="true"' : ' aria-pressed="false"') + ">" + esc(c) + "</button>";

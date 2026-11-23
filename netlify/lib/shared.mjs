@@ -38,7 +38,7 @@ export async function printify(path, { method = "GET", body } = {}) {
   return data;
 }
 
-const APPAREL = /\b(tee|t-shirt|shirt|hoodie|crewneck|sweatshirt|sweater|jacket|shorts|pants|joggers|hat|cap|beanie|snapback|socks|polo|jersey)\b/i;
+const APPAREL = /\b(tee|t-shirt|shirt|hoodie|crewneck|sweatshirt|sweater|jacket|shorts|pants|joggers|zip|quarter-zip|sleeve|pullover|hat|cap|beanie|snapback|socks|polo|jersey)\b/i;
 export function taxCodeFor(title) {
   // Stripe Tax codes: clothing vs. general tangible goods.
   return APPAREL.test(title || "") ? "txcd_30011000" : "txcd_99999999";
