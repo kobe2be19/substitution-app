@@ -48,7 +48,9 @@
         if (!/^https:\/\//.test(link) || !title) return;
         strip.innerHTML = '<a href="' + esc(link) + '">' + esc(title) + '</a>';
         var read = document.getElementById('tribune-latest-link');
-        if (read) read.href = link;
+        if (read) { read.href = link; read.innerHTML = 'Read the issue &rarr;'; }
+        var label = document.getElementById('tribune-label');
+        if (label) label.textContent = 'LATEST ISSUE';
       })
       .catch(function () {});
   }
