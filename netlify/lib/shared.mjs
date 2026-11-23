@@ -54,6 +54,38 @@ function plainText(html) {
     .trim();
 }
 
+// Order of product photos: on-model first, size charts last.
+export function imageRank(src) {
+  const m = /[?&]camera_label=([^&]+)/.exec(src || "");
+  if (!m) return 1; // our own uploaded photos (already ordered on purpose)
+  const l = decodeURIComponent(m[1]).toLowerCase();
+  if (l.includes("size-chart")) return 9;
+  if (/^person/.test(l)) {
+    if (/back|sleeve/.test(l)) return 6;
+    const n = parseInt((l.match(/\d+/) || ["1"])[0], 10);
+    return n <= 2 ? 0 + n / 10 : 1.5;
+  }
+  if (/^lifestyle/.test(l)) return 1.6;
+  if (l === "front") return 2;
+  if (/^front/.test(l)) return 2.5;
+  if (l === "folded") return 3;
+  if (/^(left|right)/.test(l)) return 4;
+  if (/^back/.test(l)) return 5;
+  return 7;
+}
+
+// Shop order: the core line first, then layers, headwear, accessories; sold out last.
+export function productRank(p) {
+  const t = (p.title || "").toLowerCase();
+  const table = [[/training tee|\btee\b/, 10], [/quarter-zip/, 20], [/polo/, 30], [/jacket/, 40], [/long sleeve/, 50], [/hoodie|crewneck/, 60], [/cap|beanie|hat/, 70], [/bottle/, 80], [/duffel|bag/, 90]];
+  let r = 85;
+  for (const [re, v] of table) if (re.test(t)) { r = v; break; }
+  if (/women/.test(t)) r += 1;
+  if (/dark/.test(t)) r += 1;
+  if (!(p.variants || []).some((v) => v.available)) r += 1000;
+  return r;
+}
+
 // Turn a raw Printify product into what the shop page needs.
 export function normalizeProduct(p) {
   const variants = (p.variants || [])
@@ -72,10 +104,11 @@ export function normalizeProduct(p) {
     type: o.type,
     values: (o.values || []).filter((val) => used.has(val.id)).map((val) => ({ id: val.id, title: val.title, colors: val.colors || null })),
   })).filter((o) => o.values.length);
+  // Lead with on-model photos, then our own uploads, then flat shots; backs and size charts last.
   const images = (p.images || [])
-    .slice()
-    .sort((a, b) => (b.is_default === true) - (a.is_default === true))
-    .map((img) => ({ src: img.src, variant_ids: img.variant_ids || [] }));
+    .map((img, i) => ({ img, i, r: imageRank(img.src) }))
+    .sort((a, b) => a.r - b.r || a.i - b.i)
+    .map(({ img }) => ({ src: img.src, variant_ids: img.variant_ids || [] }));
   const prices = variants.map((v) => v.price);
   return {
     id: p.id,
@@ -102,7 +135,7 @@ export async function loadCatalog() {
     }
     if (!data.last_page || page >= data.last_page) break;
   }
-  return out;
+  return out.map((p, i) => ({ p, i, r: productRank(p) })).sort((a, b) => a.r - b.r || a.i - b.i).map(({ p }) => p);
 }
 
 // ---------- Stripe ----------
