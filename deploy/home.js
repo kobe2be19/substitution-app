@@ -70,4 +70,20 @@
       })
       .catch(function () {});
   }
+
+  // ---------- Tribune subscribe box light-up ----------
+  var sub = document.querySelector('.journal-subscribe');
+  if (sub) {
+    var glow = document.createElement('span');
+    glow.className = 'sub-glow';
+    glow.setAttribute('aria-hidden', 'true');
+    sub.insertBefore(glow, sub.firstChild);
+    var h3 = sub.querySelector('h3');
+    if (h3 && !h3.querySelector('i')) h3.insertAdjacentHTML('beforeend', '<i aria-hidden="true">&rarr;</i>');
+    sub.addEventListener('pointermove', function (e) {
+      var r = sub.getBoundingClientRect();
+      sub.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+      sub.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+    });
+  }
 })();

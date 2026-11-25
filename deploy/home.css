@@ -37,6 +37,24 @@
 @media (hover:none){.m-media img{filter:none}.m-copy b{color:#f4f2ee}.marquee:hover .m-tile{opacity:1}}
 @media (prefers-reduced-motion:reduce){.marquee{overflow-x:auto;-webkit-mask-image:none;mask-image:none;padding:0 28px}.marquee-track{animation:none}.marquee-track [aria-hidden=true]{display:none}.marquee .m-tile:hover,.marquee .m-tile:focus-visible{transform:none}.m-tile:hover .m-media img{transform:none}}
 
+/* Tribune subscribe box: same showroom light-up as the shop marquee. Rests dimmed; on hover it
+   lifts, glows ivory and a spotlight follows the cursor (glow layer added by home.js). */
+.journal-subscribe{--ease:cubic-bezier(.2,.7,.2,1);position:relative;isolation:isolate;overflow:hidden;transition:transform .6s var(--ease),border-color .6s var(--ease),box-shadow .6s var(--ease)}
+.journal-subscribe>*{position:relative;z-index:1}
+.journal-subscribe .sub-glow{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .5s var(--ease);background:radial-gradient(420px circle at var(--mx,30%) var(--my,50%),rgba(244,242,238,.13),rgba(244,242,238,0) 70%)}
+.journal-subscribe h3{color:#cfcdc9;transition:color .5s var(--ease)}
+.journal-subscribe h3 i{font-style:normal;display:inline-block;margin-left:10px;opacity:0;transform:translateX(-8px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.journal-subscribe p{transition:color .5s var(--ease)}
+.journal-subscribe iframe{filter:brightness(.8) saturate(.85);transition:filter .6s var(--ease)}
+.journal-subscribe:hover,.journal-subscribe:focus-within{transform:translateY(-8px);border-color:rgba(244,242,238,.55);box-shadow:0 0 0 1px rgba(244,242,238,.18),0 30px 80px -24px rgba(244,242,238,.38),0 0 120px -30px rgba(244,242,238,.3)}
+.journal-subscribe:hover .sub-glow,.journal-subscribe:focus-within .sub-glow{opacity:1}
+.journal-subscribe:hover h3,.journal-subscribe:focus-within h3{color:#fff}
+.journal-subscribe:hover h3 i,.journal-subscribe:focus-within h3 i{opacity:1;transform:none}
+.journal-subscribe:hover p,.journal-subscribe:focus-within p{color:#f4f2ee}
+.journal-subscribe:hover iframe,.journal-subscribe:focus-within iframe{filter:none}
+@media (hover:none){.journal-subscribe iframe{filter:none}.journal-subscribe h3{color:#f4f2ee}}
+@media (prefers-reduced-motion:reduce){.journal-subscribe:hover,.journal-subscribe:focus-within{transform:none}}
+
 .tribune-strip{max-width:var(--max);margin:0 auto;padding:44px 28px;border-bottom:1px solid #171717;display:grid;grid-template-columns:240px 1fr auto;gap:36px;align-items:center}
 .tribune-strip .eyebrow{margin:0}
 .tribune-strip .ts-label{color:#6f7a87;font-size:11px;letter-spacing:.2em;font-weight:700;margin-top:8px}
