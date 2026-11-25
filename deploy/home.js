@@ -31,11 +31,19 @@
           .map(function (x) { return x.p; });
         var tile = function (p, hidden) {
           return '<a class="m-tile" href="/shop#' + esc(p.id) + '"' + (hidden ? ' tabindex="-1" aria-hidden="true"' : '') + '>' +
-            '<div class="m-media"><img src="' + esc(p.images[0].src) + '" alt="' + (hidden ? '' : esc(p.title)) + '" loading="lazy" decoding="async" /></div>' +
-            '<div class="m-copy"><b>' + esc(p.title) + '</b><span>' + money(p.price_from) + '</span></div></a>';
+            '<div class="m-media"><img src="' + esc(p.images[0].src) + '" alt="' + (hidden ? '' : esc(p.title)) + '" loading="lazy" decoding="async" /><span class="m-glow" aria-hidden="true"></span></div>' +
+            '<div class="m-copy"><b>' + esc(p.title) + '</b><span>' + money(p.price_from) + '<i aria-hidden="true">&rarr;</i></span></div></a>';
         };
         track.innerHTML = list.map(function (p) { return tile(p, false); }).join('') +
                           list.map(function (p) { return tile(p, true); }).join('');
+        // Spotlight follows the pointer inside the lit tile.
+        track.addEventListener('pointermove', function (e) {
+          var media = e.target.closest && e.target.closest('.m-media');
+          if (!media) return;
+          var r = media.getBoundingClientRect();
+          media.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+          media.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+        });
         track.style.setProperty('--dur', Math.max(40, list.length * 6) + 's');
         band.hidden = false;
       })
