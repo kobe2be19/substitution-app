@@ -21,6 +21,14 @@
           return p.images && p.images.length && p.variants && p.variants.some(function (v) { return v.available; });
         });
         if (list.length < 3) return;
+        // Curated tonal run from the shop API (light to dark, models at a steady beat).
+        list = list.map(function (p, i) { return { p: p, i: i }; })
+          .sort(function (a, b) {
+            var ra = a.p.marquee_rank == null ? 99 : a.p.marquee_rank;
+            var rb = b.p.marquee_rank == null ? 99 : b.p.marquee_rank;
+            return ra - rb || a.i - b.i;
+          })
+          .map(function (x) { return x.p; });
         var tile = function (p, hidden) {
           return '<a class="m-tile" href="/shop#' + esc(p.id) + '"' + (hidden ? ' tabindex="-1" aria-hidden="true"' : '') + '>' +
             '<div class="m-media"><img src="' + esc(p.images[0].src) + '" alt="' + (hidden ? '' : esc(p.title)) + '" loading="lazy" decoding="async" /></div>' +
