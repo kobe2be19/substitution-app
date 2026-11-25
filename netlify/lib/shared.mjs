@@ -77,7 +77,7 @@ export function imageRank(src) {
 // Shop order: the core line first, then layers, headwear, accessories; sold out last.
 export function productRank(p) {
   const t = (p.title || "").toLowerCase();
-  const table = [[/training tee|\btee\b/, 10], [/quarter-zip/, 20], [/polo/, 30], [/jacket/, 40], [/long sleeve/, 50], [/hoodie|crewneck/, 60], [/cap|beanie|hat/, 70], [/bottle/, 80], [/duffel|bag/, 90]];
+  const table = [[/training tee|\btee\b/, 10], [/quarter-zip/, 20], [/full-zip/, 22], [/polo/, 30], [/jacket/, 40], [/long sleeve/, 50], [/hoodie|crewneck/, 60], [/cap|beanie|hat/, 70], [/bottle/, 80], [/duffel|bag/, 90]];
   let r = 85;
   for (const [re, v] of table) if (re.test(t)) { r = v; break; }
   if (/women/.test(t)) r += 1;
