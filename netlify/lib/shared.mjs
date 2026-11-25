@@ -83,6 +83,46 @@ export function isModelShot(src) {
   return !!m && /^(person|lifestyle)/i.test(decodeURIComponent(m[1]));
 }
 
+// Lead image per product: one colorway each so the homepage marquee and shop grid read as a
+// tonal run (white → silver → stone → concrete → graphite → black → heather → white) with
+// model shots at a steady cadence. [title, color, camera label ("" = our own upload)].
+const COVERS = [
+  [/sideline polo/, "white", ""],
+  [/^courtside training tee$/, "white", "front"],
+  [/long sleeve/, "silver", "front"],
+  [/^courtside cap$/, "stone", "person-2-front"],
+  [/quarter-zip/, "grey concrete", "front"],
+  [/wind jacket/, "graphite", ""],
+  [/training tee — women/, "black", "front"],
+  [/cap — dark/, "black", "person-2-front"],
+  [/hoodie/, "dark heather", "front"],
+  [/bottle/, "white", "front"],
+];
+export function marqueeRank(title) {
+  const t = (title || "").toLowerCase();
+  const i = COVERS.findIndex(([re]) => re.test(t));
+  return i < 0 ? 99 : i;
+}
+
+function pickCover(title, images, variants, options) {
+  const t = (title || "").toLowerCase();
+  const rule = COVERS.find(([re]) => re.test(t));
+  if (!rule || !images.length) return;
+  const [, color, label] = rule;
+  const names = {};
+  for (const o of options) for (const v of o.values) names[v.id] = String(v.title).toLowerCase();
+  const colorOf = (img) => {
+    const v = variants.find((x) => img.variant_ids.includes(x.id));
+    return v ? v.options.map((id) => names[id]).filter(Boolean) : [];
+  };
+  const labelOf = (img) => {
+    const m = /[?&]camera_label=([^&]+)/.exec(img.src);
+    return m ? decodeURIComponent(m[1]).toLowerCase() : "";
+  };
+  const i = images.findIndex((img) => labelOf(img) === label && colorOf(img).includes(color));
+  if (i > 0) images.unshift(images.splice(i, 1)[0]);
+}
+
 export function productRank(p) {
   const t = (p.title || "").toLowerCase();
   const table = [[/training tee|\btee\b/, 10], [/quarter-zip/, 20], [/full-zip/, 22], [/polo/, 30], [/jacket/, 40], [/long sleeve/, 50], [/hoodie|crewneck/, 60], [/cap|beanie|hat/, 70], [/bottle/, 80], [/duffel|bag/, 90]];
@@ -120,6 +160,7 @@ export function normalizeProduct(p) {
     .map((img, i) => ({ img, i, r: imageRank(img.src) }))
     .sort((a, b) => a.r - b.r || a.i - b.i)
     .map(({ img }) => ({ src: img.src, variant_ids: img.variant_ids || [] }));
+  pickCover(p.title, images, variants, options);
   const prices = variants.map((v) => v.price);
   return {
     id: p.id,
@@ -129,6 +170,7 @@ export function normalizeProduct(p) {
     options,
     variants,
     images,
+    marquee_rank: marqueeRank(p.title),
     price_from: Math.min(...prices),
     price_to: Math.max(...prices),
   };
