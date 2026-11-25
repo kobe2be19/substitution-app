@@ -75,6 +75,14 @@ export function imageRank(src) {
 }
 
 // Shop order: the core line first, then layers, headwear, accessories; sold out last.
+export function showsModels(title) {
+  return /wind jacket|polo|\bcap\b/i.test(title || "");
+}
+export function isModelShot(src) {
+  const m = /[?&]camera_label=([^&]+)/.exec(src || "");
+  return !!m && /^(person|lifestyle)/i.test(decodeURIComponent(m[1]));
+}
+
 export function productRank(p) {
   const t = (p.title || "").toLowerCase();
   const table = [[/training tee|\btee\b/, 10], [/quarter-zip/, 20], [/full-zip/, 22], [/polo/, 30], [/jacket/, 40], [/long sleeve/, 50], [/hoodie|crewneck/, 60], [/cap|beanie|hat/, 70], [/bottle/, 80], [/duffel|bag/, 90]];
@@ -104,8 +112,11 @@ export function normalizeProduct(p) {
     type: o.type,
     values: (o.values || []).filter((val) => used.has(val.id)).map((val) => ({ id: val.id, title: val.title, colors: val.colors || null })),
   })).filter((o) => o.values.length);
+  // Only the polo, wind jacket and caps show models; everything else is product-only.
+  const keepModels = showsModels(p.title);
   // Lead with on-model photos, then our own uploads, then flat shots; backs and size charts last.
   const images = (p.images || [])
+    .filter((img) => keepModels || !isModelShot(img.src))
     .map((img, i) => ({ img, i, r: imageRank(img.src) }))
     .sort((a, b) => a.r - b.r || a.i - b.i)
     .map(({ img }) => ({ src: img.src, variant_ids: img.variant_ids || [] }));
