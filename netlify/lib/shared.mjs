@@ -177,8 +177,8 @@ export function normalizeProduct(p) {
 }
 
 // Products pulled from the line that Printify still lists (e.g. stuck in "Publishing" so they
-// cannot be deleted yet). 6b06350f…: Travel Full-Zip, retired 2026-11-24.
-const RETIRED_IDS = new Set(["6b06350f255f2587670ea95b"]);
+// cannot be deleted yet). Travel Full-Zip Jacket (ST800), retired 2026-11-24.
+const RETIRED_IDS = new Set(["6b06350f255f2587670ea95b", "6b0638e258dd70255e0cf9bd"]);
 
 export async function loadCatalog() {
   const out = [];
