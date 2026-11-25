@@ -176,13 +176,17 @@ export function normalizeProduct(p) {
   };
 }
 
+// Products pulled from the line that Printify still lists (e.g. stuck in "Publishing" so they
+// cannot be deleted yet). 6b06350f…: Travel Full-Zip, retired 2026-11-24.
+const RETIRED_IDS = new Set(["6b06350f255f2587670ea95b"]);
+
 export async function loadCatalog() {
   const out = [];
   for (let page = 1; page <= 10; page++) {
     const data = await printify(`/shops/${shopId()}/products.json?limit=50&page=${page}`);
     for (const p of data.data || []) {
       const tags = (p.tags || []).map((t) => String(t).toLowerCase());
-      if (tags.includes("hidden")) continue;
+      if (tags.includes("hidden") || RETIRED_IDS.has(p.id)) continue;
       const n = normalizeProduct(p);
       if (n) out.push(n);
     }
