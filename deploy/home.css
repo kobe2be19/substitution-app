@@ -11,7 +11,7 @@
 .shop-band-head p{color:#8d8d8d;font-size:16px;line-height:1.65;max-width:440px;margin:18px 0 0}
 .shop-band-cta{display:inline-flex;align-items:center;min-height:52px;padding:0 26px;border-radius:999px;font-size:14px;font-weight:650;background:#f4f2ee;color:#0a0a0a}
 .shop-band-cta:hover{background:#fff}
-.marquee{position:relative;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
+.marquee{position:relative;padding:24px 0 70px;margin:-24px 0 -70px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
 .marquee-track{display:flex;width:max-content;animation:sub-marquee var(--dur,70s) linear infinite}
 .marquee:hover .marquee-track,.marquee:focus-within .marquee-track{animation-play-state:paused}
 @keyframes sub-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
