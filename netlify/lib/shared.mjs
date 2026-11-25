@@ -76,7 +76,7 @@ export function imageRank(src) {
 
 // Shop order: the core line first, then layers, headwear, accessories; sold out last.
 export function showsModels(title) {
-  return /wind jacket|polo|\bcap\b/i.test(title || "");
+  return /wind jacket|polo/i.test(title || "");
 }
 export function isModelShot(src) {
   const m = /[?&]camera_label=([^&]+)/.exec(src || "");
@@ -84,17 +84,17 @@ export function isModelShot(src) {
 }
 
 // Lead image per product: one colorway each so the homepage marquee and shop grid read as a
-// tonal run (white → silver → stone → concrete → graphite → black → heather → white) with
-// model shots at a steady cadence. [title, color, camera label ("" = our own upload)].
+// tonal run (white → silver → stone → concrete → graphite → black → heather → white), with
+// the two model shots (polo, wind jacket) as anchors. [title, color, camera label ("" = our own upload)].
 const COVERS = [
   [/sideline polo/, "white", ""],
   [/^courtside training tee$/, "white", "front"],
   [/long sleeve/, "silver", "front"],
-  [/^courtside cap$/, "stone", "person-2-front"],
+  [/^courtside cap$/, "stone", "front"],
   [/quarter-zip/, "grey concrete", "front"],
   [/wind jacket/, "graphite", ""],
   [/training tee — women/, "black", "front"],
-  [/cap — dark/, "black", "person-2-front"],
+  [/cap — dark/, "black", "front"],
   [/hoodie/, "dark heather", "front"],
   [/bottle/, "white", "front"],
 ];
@@ -152,7 +152,7 @@ export function normalizeProduct(p) {
     type: o.type,
     values: (o.values || []).filter((val) => used.has(val.id)).map((val) => ({ id: val.id, title: val.title, colors: val.colors || null })),
   })).filter((o) => o.values.length);
-  // Only the polo, wind jacket and caps show models; everything else is product-only.
+  // Only the polo and wind jacket show models; everything else is product-only.
   const keepModels = showsModels(p.title);
   // Lead with on-model photos, then our own uploads, then flat shots; backs and size charts last.
   const images = (p.images || [])
